@@ -1,1 +1,23 @@
-{{note?.noteId}}
+<ng-container [formGroup]="editForm">
+  <nz-input-group>
+    <label>Login</label>
+    <input nz-input type="text" formControlName="login" placeholder="login">
+  </nz-input-group>
+  <nz-input-group>
+    <label>URL</label>
+    <input nz-input type="text" formControlName="url" placeholder="url">
+  </nz-input-group>
+  <nz-input-group nzPrefixIcon="lock" [nzAddOnAfter]="iconTpl">
+    <input nz-input [type]="show ? 'text' : 'password'" formControlName="password" placeholder="password">
+  </nz-input-group>
+  <nz-input-group>
+    <label>Mark</label>
+    <input nz-input type="mark" formControlName="mark" placeholder="mark">
+  </nz-input-group>
+</ng-container>
+
+
+<ng-template #iconTpl>
+  <i nz-icon [nzType]="show ? 'eye' : 'eye-invisible'" (click)="show = !show" nzTheme="outline"></i>
+  <i class="generate-password" nz-icon nzType="bulb" nzTheme="outline" (click)="generatePassword()"></i>
+</ng-template>
