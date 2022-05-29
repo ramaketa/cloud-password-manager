@@ -1,0 +1,36 @@
+<nz-card class="login-form">
+  <form nz-form [formGroup]="registerForm">
+    <div class="login-form__title">Регистрация</div>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Введите логин!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="username" placeholder="Логин"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Введите email">
+        <nz-input-group nzPrefixIcon="mail">
+          <input type="text" nz-input formControlName="email" placeholder="E-mail"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Введите пароль!">
+        <nz-input-group nzPrefixIcon="lock" [nzAddOnAfter]="iconTpl">
+          <input [type]="show ? 'text' : 'password'" nz-input formControlName="password" placeholder="Пароль"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button class="login-form-button login-form-margin"
+            [disabled]="isLoading"
+            [nzLoading]="isLoading"
+            [nzType]="'primary'"
+            (click)="submitForm()">Зарегистрироваться</button>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'default'" routerLink="/login">Уже есть аккаунт</button>
+  </form>
+</nz-card>
+
+<ng-template #iconTpl>
+  <i nz-icon [nzType]="show ? 'eye' : 'eye-invisible'" (click)="show = !show" nzTheme="outline"></i>
+</ng-template>
