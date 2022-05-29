@@ -12,13 +12,16 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Passwords" nzIcon="database">
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/manage">Overview</a>
+          <li nz-menu-item nzMatchRouter *ngFor="let password of noteList">
+            <a [routerLink]="'/lk/manage/' + password.noteId">{{password.login}}</a>
           </li>
         </ul>
       </li>
+    </ul>
+    <ul nz-menu nzMode="inline" (click)="isVisible = !isVisible">
+      <li class="logout" nz-submenu nzTitle="Добавить" nzIcon="plus"></li>
     </ul>
     <ul nz-menu nzMode="inline" (click)="logout()">
       <li class="logout" nz-submenu nzTitle="Выйти" nzIcon="logout"></li>
@@ -38,7 +41,34 @@
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
+
+
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="Добавление записи" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+                  [nzOkDisabled]="isLoading" [nzCancelDisabled]="isLoading" [nzOkLoading]="isLoading">
+          <ng-container *nzModalContent [formGroup]="createForm">
+            <nz-input-group>
+              <label>Login</label>
+              <input nz-input type="text" formControlName="login" placeholder="login">
+            </nz-input-group>
+            <nz-input-group>
+              <label>URL</label>
+              <input nz-input type="text" formControlName="url" placeholder="url">
+            </nz-input-group>
+            <nz-input-group nzPrefixIcon="lock" [nzAddOnAfter]="iconTpl">
+              <input nz-input [type]="show ? 'text' : 'password'" formControlName="password" placeholder="password">
+            </nz-input-group>
+            <nz-input-group>
+              <label>Mark</label>
+              <input nz-input type="mark" formControlName="mark" placeholder="mark">
+            </nz-input-group>
+          </ng-container>
+        </nz-modal>
       </div>
     </nz-content>
   </nz-layout>
 </nz-layout>
+
+<ng-template #iconTpl>
+  <i nz-icon [nzType]="show ? 'eye' : 'eye-invisible'" (click)="show = !show" nzTheme="outline"></i>
+  <i class="generate-password" nz-icon nzType="bulb" nzTheme="outline" (click)="generatePassword()"></i>
+</ng-template>

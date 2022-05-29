@@ -1,4 +1,3 @@
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -15,12 +14,7 @@ import {AuthGuard} from './guards/auth.guard';
     AuthService,
     AuthInterceptor,
     AuthGuard,
-    UtilsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
+    UtilsService
   ]
 })
 export class AppCommonModule {}
