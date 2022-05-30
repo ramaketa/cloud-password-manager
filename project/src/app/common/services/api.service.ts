@@ -23,7 +23,7 @@ export class ApiService {
     return this.httpClient.patch<Note>('/note', note);
   }
 
-  deleteNote(noteId: number): Observable<any> {
+    deleteNote(noteId: number | undefined): Observable<any> {
     return this.httpClient.delete<any>('/note', {
       body: { noteId }
     });

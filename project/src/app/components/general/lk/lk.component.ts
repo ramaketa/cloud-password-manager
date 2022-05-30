@@ -5,6 +5,9 @@ import {Note} from "../../../common/models/note.model";
 import {UtilsService} from "../../../common/services/utils.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
+import * as crypto from 'crypto-js';
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-lk',
   templateUrl: './lk.component.html',
@@ -16,6 +19,7 @@ export class LkComponent implements OnInit {
   isVisible = false;
   isLoading = false;
   show = false;
+  showMaster = false;
 
   createForm: FormGroup;
 
@@ -23,6 +27,7 @@ export class LkComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
+              private router: Router,
               private utilsService: UtilsService,
               private apiService: ApiService) {
   }
@@ -33,6 +38,7 @@ export class LkComponent implements OnInit {
     this.createForm = this.fb.group({
       login: ['', [Validators.required, Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.minLength(2)]],
+      masterPassword: ['', [Validators.required, Validators.minLength(2)]],
       url: ['', [Validators.minLength(2)]],
       mark: ['', [Validators.minLength(2)]],
     })
@@ -56,8 +62,9 @@ export class LkComponent implements OnInit {
 
     this.apiService.createNote(note)
       .subscribe(
-        () => {
+        (data) => {
           this.getAllNotes();
+          this.router.navigate([`/lk/manage/${data.noteId}`])
           this.utilsService.successMessage('Запись успешно добавлена', 'Успешно');
         },
         (error) => {
@@ -79,14 +86,19 @@ export class LkComponent implements OnInit {
     }
   }
 
+
+
   handleOk(): void {
     if (!this.createForm.valid) {
       this.utilsService.warningMessage('Необходимо заполнить обязательные поля', 'Ошибка заполнения');
       return;
     }
 
+    const password = this.createForm.controls['password'].value;
+    const masterPassword = this.createForm.controls['masterPassword'].value;
+
     const note: Note = {
-      password: this.createForm.controls['password'].value,
+      password: this.utilsService.encrypt(password, masterPassword),
       login: this.createForm.controls['login'].value,
       url: this.createForm.controls['url'].value,
       mark: this.createForm.controls['mark'].value

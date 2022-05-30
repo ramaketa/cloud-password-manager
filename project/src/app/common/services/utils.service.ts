@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {NzNotificationPlacement, NzNotificationService} from "ng-zorro-antd/notification";
 import {FormGroup} from "@angular/forms";
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +61,13 @@ export class UtilsService {
       retVal += charset.charAt(Math.floor(Math.random() * n));
     }
     return retVal;
+  }
+
+  encrypt(value : string, secretKey: string) : string{
+    return CryptoJS.AES.encrypt(value, secretKey.trim()).toString();
+  }
+
+  decrypt(textToDecrypt : string, secretKey: string){
+    return CryptoJS.AES.decrypt(textToDecrypt, secretKey.trim()).toString(CryptoJS.enc.Utf8);
   }
 }

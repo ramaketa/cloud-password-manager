@@ -11,6 +11,11 @@ import {NzModalModule} from "ng-zorro-antd/modal";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzGridModule} from "ng-zorro-antd/grid";
+import {NzTypographyModule} from "ng-zorro-antd/typography";
+import {NzStatisticModule} from "ng-zorro-antd/statistic";
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
+import {NzResultModule} from "ng-zorro-antd/result";
 
 
 
@@ -31,6 +36,11 @@ import {NzGridModule} from "ng-zorro-antd/grid";
     ReactiveFormsModule,
     NzInputModule,
     NzGridModule,
+    NzTypographyModule,
+    NzStatisticModule,
+    NzButtonModule,
+    NzPopconfirmModule,
+    NzResultModule,
   ]
 })
 export class LkModule { }

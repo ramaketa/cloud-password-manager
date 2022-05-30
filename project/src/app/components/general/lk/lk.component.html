@@ -57,6 +57,9 @@
             <nz-input-group nzPrefixIcon="lock" [nzAddOnAfter]="iconTpl">
               <input nz-input [type]="show ? 'text' : 'password'" formControlName="password" placeholder="password">
             </nz-input-group>
+            <nz-input-group nzPrefixIcon="lock" [nzAddOnAfter]="iconMasterTpl">
+              <input nz-input [type]="showMaster ? 'text' : 'password'" formControlName="masterPassword" placeholder="MasterPassword">
+            </nz-input-group>
             <nz-input-group>
               <label>Mark</label>
               <input nz-input type="mark" formControlName="mark" placeholder="mark">
@@ -71,4 +74,8 @@
 <ng-template #iconTpl>
   <i nz-icon [nzType]="show ? 'eye' : 'eye-invisible'" (click)="show = !show" nzTheme="outline"></i>
   <i class="generate-password" nz-icon nzType="bulb" nzTheme="outline" (click)="generatePassword()"></i>
+</ng-template>
+
+<ng-template #iconMasterTpl>
+  <i nz-icon [nzType]="showMaster ? 'eye' : 'eye-invisible'" (click)="showMaster = !showMaster" nzTheme="outline"></i>
 </ng-template>
