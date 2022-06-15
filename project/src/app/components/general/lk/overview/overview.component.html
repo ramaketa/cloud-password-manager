@@ -15,22 +15,25 @@
   <br>
   <nz-row [nzGutter]="16" *ngIf="note">
     <nz-col [nzSpan]="12">
-      <nz-statistic [nzValue]="note.login" [nzTitle]="'Login'"></nz-statistic>
+      <nz-statistic [nzValueTemplate]="loginTpl" [nzTitle]="'Login'"></nz-statistic>
     </nz-col>
     <nz-col [nzSpan]="12">
-      <nz-statistic [nzValue]="note.url" [nzTitle]="'URL'"></nz-statistic>
+      <nz-statistic [nzValueTemplate]="noteTpl" [nzTitle]="'URL'"></nz-statistic>
     </nz-col>
   </nz-row>
   <br>
   <nz-row [nzGutter]="16" *ngIf="note">
     <nz-col [nzSpan]="12">
-      <nz-statistic [nzValue]="note.mark" [nzTitle]="'Mark'"></nz-statistic>
+      <nz-statistic [nzValueTemplate]="markTpl" [nzTitle]="'Mark'"></nz-statistic>
     </nz-col>
     <nz-col [nzSpan]="12">
       <nz-statistic [nzValueTemplate]="passTpl" [nzTitle]="'Password'"></nz-statistic>
     </nz-col>
   </nz-row>
 
+  <ng-template #noteTpl>{{note.url}}</ng-template>
+  <ng-template #loginTpl>{{note.login}}</ng-template>
+  <ng-template #markTpl>{{note.mark}}</ng-template>
 </ng-container>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Master Password" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
